@@ -42,3 +42,17 @@ https://jaktestowac.pl/lesson/pw1s01l01/
 - Preview: for README.md
 - Auto save option: File -> Auto save
 - File history: Folder -> context menu -> Open timeline
+
+## Playwright snippets
+
+- always begin with import
+``` javascript
+import {test, expect} from '@playwright/test';
+```
+
+- group tests with 'describe'
+``` javascript
+test.describe('Pulpit tests', () => {
+    
+});
+```
