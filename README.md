@@ -56,3 +56,9 @@ import { test, expect } from '@playwright/test';
 ```javascript
 test.describe('Pulpit tests', () => {});
 ```
+
+- wait for page to fully load
+
+```javascript
+    await page.waitForLoadState("domcontentloaded")
+```

@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 
 test.describe('Pulpit tests', () => {
-  test('quick payment with correct data', async ({ page }) => {
+  test.only('quick payment with correct data', async ({ page }) => {
     // Arrange
     const url = 'https://demo-bank.vercel.app/';
     const userName = 'testerka';
@@ -10,13 +10,16 @@ test.describe('Pulpit tests', () => {
     const receiverId = '2';
     const transferAmount = '150';
     const transferTitle = 'zwrot';
-    const expectedTransferReceiver = 'Chuck Demobankowy';
+    const expectedTransferReceiver = 'BUG Chuck Demobankowy';
 
     // Act
     await page.goto(url);
     await page.getByTestId('login-input').fill(userName);
     await page.getByTestId('password-input').fill(userPassword);
     await page.getByTestId('login-button').click();
+
+    // wait for page to fully load:
+    await page.waitForLoadState("domcontentloaded")
 
     await page.locator('#widget_1_transfer_receiver').selectOption(receiverId);
     await page.locator('#widget_1_transfer_amount').fill(transferAmount);
@@ -36,6 +39,9 @@ test.describe('Pulpit tests', () => {
     await page.getByTestId('login-input').fill('testerka');
     await page.getByTestId('password-input').fill('12345678');
     await page.getByTestId('login-button').click();
+
+    // wait for page to fully load:
+    await page.waitForLoadState("domcontentloaded")
 
     await page.locator('#widget_1_topup_receiver').selectOption('500 xxx xxx');
     await page.locator('#widget_1_topup_amount').fill('40');
