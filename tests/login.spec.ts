@@ -1,6 +1,7 @@
 import { test, expect } from '@playwright/test';
 
 test.describe('User login to Demobank', () => {
+
   test('successful login with correct credentials', async ({ page }) => {
     await page.goto('https://demo-bank.vercel.app/');
     await page.getByTestId('login-input').click();
@@ -12,6 +13,7 @@ test.describe('User login to Demobank', () => {
 
     await expect(page.getByTestId('user-name')).toHaveText('Jan Demobankowy');
   });
+
   test('unsuccessful login with too short username', async ({ page }) => {
     await page.goto('https://demo-bank.vercel.app/');
     await page.getByTestId('login-input').click();
@@ -20,7 +22,8 @@ test.describe('User login to Demobank', () => {
 
     await expect(page.getByTestId('error-login-id')).toHaveText('identyfikator ma min. 8 znaków');
   });
-  test.only('unsuccessful login with too short password', async ({ page }) => {
+
+  test('unsuccessful login with too short password', async ({ page }) => {
     await page.goto('https://demo-bank.vercel.app/');
     await page.getByTestId('login-input').click();
     await page.getByTestId('login-input').fill('testerka');
