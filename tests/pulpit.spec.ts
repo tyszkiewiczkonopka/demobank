@@ -2,7 +2,6 @@ import { test, expect } from '@playwright/test';
 
 test.describe('Pulpit tests', () => {
   test.beforeEach(async ({ page }) => {
-    //const url = 'https://demo-bank.vercel.app/';
     const userName = 'testerka';
     const userPassword = '12345678';
 
