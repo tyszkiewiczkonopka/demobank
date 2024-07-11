@@ -1,9 +1,10 @@
 import { test, expect } from '@playwright/test';
+import { loginData } from '../test-data/login.data';
 
 test.describe('Pulpit tests', () => {
   test.beforeEach(async ({ page }) => {
-    const userName = 'testerka';
-    const userPassword = '12345678';
+    const userName = loginData.userId;
+    const userPassword = loginData.userPassword;
 
     // login
     await page.goto('/');
@@ -74,8 +75,6 @@ test.describe('Pulpit tests', () => {
     await page.getByTestId('close-button').click();
 
     // Assert
-    await expect(page.locator('#money_value')).toHaveText(
-      `${expectedBalance}`,
-    );
+    await expect(page.locator('#money_value')).toHaveText(`${expectedBalance}`);
   });
 });
