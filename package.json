@@ -6,7 +6,10 @@
   "scripts": {
     "test": "npx playwright test",
     "test:pulpit:headed": "npm run test tests/pulpit.spec.ts -- --headed",
-    "test:headed": "npx playwright test --headed"
+    "test:headed": "npx playwright test --headed",
+    "test:payment": "npx playwright test tests/payment.spec.ts",
+    "test:login": "npx playwright test tests/login.spec.ts",
+    "test:pulpit": "npx playwright test tests/pulpit.spec.ts"
   },
   "keywords": [],
   "author": "",
