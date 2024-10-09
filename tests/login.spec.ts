@@ -1,7 +1,6 @@
 import { test, expect } from '@playwright/test';
 import { loginData } from '../test-data/login.data';
 import { LoginPage } from '../pages/login.page';
-import { only } from 'node:test';
 
 test.describe('User login to Demobank', () => {
   test.beforeEach(async ({ page }) => {
@@ -9,59 +8,50 @@ test.describe('User login to Demobank', () => {
   });
 
   test('successful login with correct credentials', async ({ page }) => {
-    //Arrange
-    const userName = loginData.userId;
+    // Arrange
+    const userId = loginData.userId;
     const userPassword = loginData.userPassword;
     const expectedUserName = 'Jan Demobankowy';
 
     // Act
     const loginPage = new LoginPage(page);
-    await loginPage.loginInput.fill(userName);
+    await loginPage.loginInput.fill(userId);
     await loginPage.passwordInput.fill(userPassword);
     await loginPage.loginButton.click();
-
-    // wait for page to fully load
-    await page.waitForLoadState('domcontentloaded');
 
     // Assert
     await expect(page.getByTestId('user-name')).toHaveText(expectedUserName);
   });
 
   test('unsuccessful login with too short username', async ({ page }) => {
-    //Arrange
-    const incorrectUserName = 'tester';
-    const loginMinLengthErrorMessage = 'identyfikator ma min. 8 znaków';
+    // Arrange
+    const incorrectUserId = 'tester';
+    const expectedErrorMessage = 'identyfikator ma min. 8 znaków';
 
     // Act
-    const loginPage = new LoginPage(page);
-    await loginPage.loginInput.fill(incorrectUserName);
-    await loginPage.passwordInput.click();
-
-    // wait for page to fully load
-    await page.waitForLoadState('domcontentloaded');
+    await page.getByTestId('login-input').fill(incorrectUserId);
+    await page.getByTestId('password-input').click();
 
     // Assert
-    await expect(loginPage.loginError).toHaveText(loginMinLengthErrorMessage);
+    await expect(page.getByTestId('error-login-id')).toHaveText(
+      expectedErrorMessage
+    );
   });
 
   test('unsuccessful login with too short password', async ({ page }) => {
-    //Arrange
-    const userName = loginData.userId;
-    const invalidPassword = '12345';
-    const passwordMinLengthErrorMessage = 'hasło ma min. 8 znaków';
+    // Arrange
+    const userId = loginData.userId;
+    const incorrectPassword = '1234';
+    const expectedErrorMessage = 'hasło ma min. 8 znaków';
 
     // Act
-    const loginPage = new LoginPage(page);
-    await loginPage.loginInput.fill(userName);
-    await loginPage.passwordInput.fill(invalidPassword);
-    await loginPage.passwordInput.blur();
-
-    // wait for page to fully load
-    await page.waitForLoadState('domcontentloaded');
+    await page.getByTestId('login-input').fill(userId);
+    await page.getByTestId('password-input').fill(incorrectPassword);
+    await page.getByTestId('password-input').blur();
 
     // Assert
-    await expect(loginPage.passwordError).toHaveText(
-      passwordMinLengthErrorMessage,
+    await expect(page.getByTestId('error-login-password')).toHaveText(
+      expectedErrorMessage
     );
   });
 });
