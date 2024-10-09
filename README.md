@@ -60,5 +60,5 @@ test.describe('Pulpit tests', () => {});
 - wait for page to fully load
 
 ```javascript
-    await page.waitForLoadState("domcontentloaded")
+await page.waitForLoadState('domcontentloaded');
 ```
