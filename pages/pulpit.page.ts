@@ -23,4 +23,6 @@ export class PulpitPage {
 
   messageText = this.page.getByTestId('message-text');
   moneyValueText = this.page.locator('#money_value');
+
+  
 }
