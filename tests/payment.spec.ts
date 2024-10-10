@@ -2,16 +2,15 @@ import { test, expect } from '@playwright/test';
 import { loginData } from '../test-data/login.data';
 import { LoginPage } from '../pages/login.page';
 import { PaymentPage } from '../pages/payment.page';
+import { PulpitPage } from '../pages/pulpit.page';
 
 test.describe('Payment tests', () => {
   test.beforeEach(async ({ page }) => {
-    
-    // login
-    await page.goto('/');
     const userId = loginData.userId;
     const userPassword = loginData.userPassword;
 
     // Act
+    await page.goto('/');
     const loginPage = new LoginPage(page);
     await loginPage.loginInput.fill(userId);
     await loginPage.passwordInput.fill(userPassword);
@@ -21,8 +20,10 @@ test.describe('Payment tests', () => {
     await page.waitForLoadState('domcontentloaded');
 
     // go to payments page
-    const paymentPage = new PaymentPage(page);
-    await paymentPage.paymentPage.click();
+    const pulpitPage = new PulpitPage(page);
+    await pulpitPage.sideMenu.paymentButton.click();
+    
+    //await page.getByRole('link', { name: 'płatności' }).click();
   });
 
   test('simple payment', async ({ page }) => {
@@ -34,13 +35,14 @@ test.describe('Payment tests', () => {
 
     // Act
     const paymentPage = new PaymentPage(page);
-    await paymentPage.transferReceiver.fill(transferReceiver);
-    await paymentPage.formAccountTo.fill(transferAccount);
-    await paymentPage.formAmount.fill(transferAmount);
-    await paymentPage.payButton.click();
-    await paymentPage.closeButton.click();
+    await paymentPage.transferReceiverInput.fill(transferReceiver);
+    await paymentPage.transferToInput.fill(transferAccount);
+    await paymentPage.transferAmountInput.fill(transferAmount);
+
+    await paymentPage.transferButton.click();
+    await paymentPage.actionCloseButton.click();
 
     // Assert
-    await expect(paymentPage.message).toHaveText(successfulMessage);
+    await expect(paymentPage.messageText).toHaveText(successfulMessage);
   });
 });

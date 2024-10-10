@@ -1,25 +1,28 @@
 import { Page } from '@playwright/test';
+import { SideMenuComponent } from '../components/side-menu.component';
 
 export class PulpitPage {
-
   constructor(private page: Page) {}
 
+  sideMenu = new SideMenuComponent(this.page);
+
   //TRANSFER
-  transferReceiver = this.page.locator('#widget_1_transfer_receiver')
-  transferAmount = this.page.locator('#widget_1_transfer_amount')
-  transferTitle = this.page.locator('#widget_1_transfer_title')
+  transferReceiverInput = this.page.locator('#widget_1_transfer_receiver');
+  transferAmountInput = this.page.locator('#widget_1_transfer_amount');
+  transferTitleInput = this.page.locator('#widget_1_transfer_title');
 
   //BUTTONS
-  executeButton = this.page.locator('#execute_btn');
-  closeButton = this.page.getByTestId('close-button');
-  executePhoneButton = this.page.locator('#execute_phone_btn');
+  transferButton = this.page.locator('#execute_btn');
+  actionCloseButton = this.page.getByTestId('close-button');
 
   //TOP UP
-  topUpReceiver = this.page.locator('#widget_1_topup_receiver');
-  topUpAmount = this.page.locator('#widget_1_topup_amount');
-  topUpAgreement = this.page.locator('#uniform-widget_1_topup_agreement span');
+  topupReceiverInput = this.page.locator('#widget_1_topup_receiver');
+  topupAmountInput = this.page.locator('#widget_1_topup_amount');
+  topupAgreementCheckbox = this.page.locator(
+    '#uniform-widget_1_topup_agreement span',
+  );
+  topupExecuteButton = this.page.locator('#execute_phone_btn');
 
-  message = this.page.getByTestId('message-text');
-  moneyValue = this.page.locator('#money_value');
-
+  messageText = this.page.getByTestId('message-text');
+  moneyValueText = this.page.locator('#money_value');
 }
