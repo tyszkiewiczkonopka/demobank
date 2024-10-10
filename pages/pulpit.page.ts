@@ -18,9 +18,7 @@ export class PulpitPage {
   //TOP UP
   topupReceiverInput = this.page.locator('#widget_1_topup_receiver');
   topupAmountInput = this.page.locator('#widget_1_topup_amount');
-  topupAgreementCheckbox = this.page.locator(
-    '#uniform-widget_1_topup_agreement span',
-  );
+  topupAgreementCheckbox = this.page.locator('#uniform-widget_1_topup_agreement span');
   topupExecuteButton = this.page.locator('#execute_phone_btn');
 
   messageText = this.page.getByTestId('message-text');
