@@ -9,7 +9,8 @@
     "test:headed": "npx playwright test --headed",
     "test:payment": "npx playwright test tests/payment.spec.ts",
     "test:login": "npx playwright test tests/login.spec.ts",
-    "test:pulpit": "npx playwright test tests/pulpit.spec.ts"
+    "test:pulpit": "npx playwright test tests/pulpit.spec.ts",
+    "test:smoke": "npx playwright test --grep \"@smoke\""
   },
   "keywords": [],
   "author": "",
