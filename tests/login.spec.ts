@@ -12,7 +12,13 @@ test.describe('User login to Demobank', () => {
 
   test(
     'successful login with correct credentials',
-    { tag: ['@login', '@smoke'] },
+    {
+      tag: ['@login', '@smoke'],
+      annotation: {
+        type: 'Happy path',
+        description: 'Basic happy path test for login',
+      },
+    },
     async ({ page }) => {
       // Arrange
       const userId = loginData.userId;
@@ -46,24 +52,24 @@ test.describe('User login to Demobank', () => {
     },
   );
 
-  test('unsuccessful login with too short password',
+  test(
+    'unsuccessful login with too short password',
     { tag: '@login' },
-     async ({
-    page,
-  }) => {
-    // Arrange
-    const userId = loginData.userId;
-    const incorrectPassword = '1234';
-    const expectedErrorMessage = 'hasło ma min. 8 znaków';
+    async ({ page }) => {
+      // Arrange
+      const userId = loginData.userId;
+      const incorrectPassword = '1234';
+      const expectedErrorMessage = 'hasło ma min. 8 znaków';
 
-    // Act
-    await page.getByTestId('login-input').fill(userId);
-    await page.getByTestId('password-input').fill(incorrectPassword);
-    await page.getByTestId('password-input').blur();
+      // Act
+      await page.getByTestId('login-input').fill(userId);
+      await page.getByTestId('password-input').fill(incorrectPassword);
+      await page.getByTestId('password-input').blur();
 
-    // Assert
-    await expect(page.getByTestId('error-login-password')).toHaveText(
-      expectedErrorMessage,
-    );
-  });
+      // Assert
+      await expect(page.getByTestId('error-login-password')).toHaveText(
+        expectedErrorMessage,
+      );
+    },
+  );
 });

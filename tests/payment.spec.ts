@@ -28,7 +28,14 @@ test.describe('Payment tests', () => {
 
   test(
     'simple payment',
-    { tag: ['@payment', '@integration'] },
+    {
+      tag: ['@payment', '@integration'],
+      annotation: {
+        type: 'documentation',
+        description:
+          'More to find at: https://playwright.dev/docs/test-annotations#annotate-tests',
+      },
+    },
     async ({ page }) => {
       // Arrange
       const transferReceiver = 'Jan Jankowski';
